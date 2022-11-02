@@ -1,27 +1,23 @@
 def cal(n):
     i=1
+    m=0
     while i < len(n)-1:
       if n[i]=="*":
         k=n[i-1]*n[i+1]
-        n.pop(i-1)
-        n.pop(i-1)
-        n.pop(i-1)
-        n.insert(i-1,k)
-        i-=1
+        m=1
       elif n[i]=="/":
         k=n[i-1]/n[i+1]
+        m=1
+      elif n[i]=="%":
+        k=n[i-1]%n[i+1]
+        m=1
+      if m:
         n.pop(i-1)
         n.pop(i-1)
         n.pop(i-1)
         n.insert(i-1,k)
         i-=1
-      elif n[i]=="%":
-        k=n[i-1]%n[i+1]
-        n.pop(i-1)
-        n.pop(i-1)
-        n.pop(i-1)
-        n.insert(i-1,k)
-        i-=1            
+        m=0              
       i+=1
     print(n)
     i=1
@@ -29,18 +25,17 @@ def cal(n):
             
       if n[i]=="+":
         k=n[i-1]+n[i+1]
-        n.pop(i-1)
-        n.pop(i-1)
-        n.pop(i-1)
-        n.insert(i-1,k)
-        i-=1
+        m=1
       elif n[i]=="-":
         k=n[i-1]-n[i+1]
+        m=1
+      if m:
         n.pop(i-1)
         n.pop(i-1)
         n.pop(i-1)
         n.insert(i-1,k)
         i-=1
+        m=0  
       i+=1    
     print(n)
     m=n
