@@ -1,44 +1,41 @@
-def cal(n):
-    i=1
-    m=0
-    while i < len(n)-1:
-      if n[i]=="*":
-        k=n[i-1]*n[i+1]
-        m=1
-      elif n[i]=="/":
-        k=n[i-1]/n[i+1]
-        m=1
-      elif n[i]=="%":
-        k=n[i-1]%n[i+1]
-        m=1
-      if m:
-        n.pop(i-1)
-        n.pop(i-1)
-        n.pop(i-1)
-        n.insert(i-1,k)
-        i-=1
-        m=0              
-      i+=1
-    print(n)
-    i=1
-    while i<len(n)-1: 
-            
-      if n[i]=="+":
-        k=n[i-1]+n[i+1]
-        m=1
-      elif n[i]=="-":
-        k=n[i-1]-n[i+1]
-        m=1
-      if m:
-        n.pop(i-1)
-        n.pop(i-1)
-        n.pop(i-1)
-        n.insert(i-1,k)
-        i-=1
-        m=0  
-      i+=1    
-    print(n)
-    m=n
+def cal(stack):
+    i=-1
+    t=0
+    print(stack)
+    while i >-len(stack):
+      if stack[i]=="*":
+        stack[i+1]*=stack[i-1]
+        t=1
+      elif stack[i]=="/":
+        stack[i+1]/=stack[i-1]
+        t=1
+      elif stack[i]=="%":
+        stack[i+1]%=stack[i-1]
+        t=1
+      if t:
+        stack.pop(i)
+        stack.pop(i)
+        print(stack)
+        i+=1
+        t=0            
+      i-=1
+    print(stack)
+    i=-1
+    t=0
+    while  i >-len(stack): 
+      if stack[i]=="+":
+        stack[i+1]+=stack[i-1]
+        t=1
+      elif stack[i]=="-":
+        stack[i+1]-=stack[i-1]
+        t=1
+      if t:
+        stack.pop(i)
+        stack.pop(i)
+        t=0
+        i+=1  
+      i-=1    
+    m=stack
     return m
 
 answer=input("do you want to try with sample input?(y/n):")
@@ -63,21 +60,25 @@ for i in exp:
 if c:
   n.append(int(c))      
 print(n)
-open=[]
-close=[]
 i=0
-while i<len(n):
-  print(n)
+t=0
+stack=[]
+while i<len(n) :   
   if n[i]=="(":
-    open.append(i)
-    print("open=",open,"i=",i)
+    open=i
   elif n[i]==")":
-    close.append(i)
-    print("close=",close,"i=",i)
-    n[open[-1]:close[0]+1]=cal(n[open[-1]+1:close[0]])
-    open.clear()
-    close.clear()
-    i=-1    
-  i+=1
-cal(n)
-print(exp,"=",n[0])               
+    close=i
+    t=1
+    for i in range(close-1,open,-1):
+        stack.append(n[i])    
+    n[open:close+1]=cal(stack)
+    stack.clear()
+    t==0
+    open=-1 
+    i=-1
+    print(n)     
+  i+=1 
+for i in range(-1,-len(n)-1,-1):
+    stack.append(n[i])
+n=cal(stack)    
+print(exp,"=",n[0])                  
