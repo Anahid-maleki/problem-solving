@@ -37,6 +37,7 @@ p[1]=stars[m][2]
 stars.pop(m)
 min=math.sqrt(w**2+h**2)
 while(len(stars)):
+    min=math.sqrt(w**2+h**2)
     for i in range(len(stars)):
         distance=math.sqrt((p[0]-stars[i][1])**2+(p[1]-stars[i][2])**2)
         if distance<min:
