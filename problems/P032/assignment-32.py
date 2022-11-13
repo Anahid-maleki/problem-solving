@@ -28,8 +28,6 @@ for i in x:
         words.append(i)
         times.append(k)
     k=0
-print(words)
-print(times)
 times_h1=[]
 times_h2=[]
 for i in words:
@@ -42,14 +40,29 @@ for i in words:
         if i==x[t]:
             m+=1
     times_h1.append(k)
-    times_h2.append(m) 
-print(times_h1)
-print(times_h2)
+    times_h2.append(m)
+print("\n")           
+print("Words used in the passage and their repetition in all passage and first half and second half:")
+m=len(words[0])
+for i in words:
+    if len(i)>m:
+        m=len(i)        
+for i in range(len(words)):    
+    print(" ",words[i],end=" ")
+    for j in range(m-len(words[i])):
+        print(" ",end="")
+    print("{:3d}{:3d}{:3d}".format(times[i],times_h1[i],times_h2[i]),end="")
+    if (i+1)%4==0:
+        print()
+print("\n")           
 r=[]
 for i in range(len(words)):
     if times_h2[i]>times_h1[i]:
         r.append(words[i])
-print("words that are repeated more times in the second half of the passage:",r)
+print("words that are repeated more times in the second half of the passage:")
+for i in range(len(r)):
+    print(r[i],end="    ")
+print("\n")    
 letters=[]
 times_l=[]
 k=0 
@@ -60,14 +73,28 @@ for i in passage:
                 k+=1
         letters.append(i)
         times_l.append(k)
-    k=0 
-print("characters",letters)
-print("are repeated",times_l,"times")
+    k=0         
+print("All characters in the passage and their repetitions:")
+for i in range(len(letters)):
+    if(letters[i]!="\n"):
+        print(letters[i],":{}".format(times_l[i]),end="      ")
+    else:
+         print("Enter:{}".format(times_l[i]),end="      ")   
+    if (i+1)%8==0:
+        print("\n")
+print("\n")        
 w=[]
+print("words that thier next word length is more than previous one:")
+m=0
 for i in range(1,len(x)-1):
     if len(x[i-1])<len(x[i+1]):
         w.append(x[i])
-print("words that thier next word length is more than previous one:",w)
+        print("[",x[i-1],w[-1],x[i+1],"]",end="   ") 
+        m+=1
+    if m==5:
+        m=0
+        print()
+print("\n")               
 w1=[]
 couple=[]
 m=0
@@ -77,4 +104,6 @@ for i in range(len(x)-1):
       couple.append(x[i+1])
       w1.append(couple[m:m+2])
       m+=2        
-print("words that their end character is beginning character of next word=",w1)
+print("words that their end character is beginning character of next word:")
+for i in w1:
+    print(i)
